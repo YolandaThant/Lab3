@@ -5,9 +5,12 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * An implementation of the Translator interface which reads in the translation
@@ -16,10 +19,11 @@ import org.json.JSONArray;
 public class JSONTranslator implements Translator {
 
     // TODO Task: pick appropriate instance variables for this class
-
+    private final Map<String, Map<String, String>> translations;
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
+
     public JSONTranslator() {
         this("sample.json");
     }
@@ -37,9 +41,23 @@ public class JSONTranslator implements Translator {
 
             JSONArray jsonArray = new JSONArray(jsonString);
 
-            // TODO Task: use the data in the jsonArray to populate your instance variables
+            // y TODO Task: use the data in the jsonArray to populate your instance variables
             //            Note: this will likely be one of the most substantial pieces of code you write in this lab.
+            translations = new HashMap<>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String countryCode = jsonObject.getString("alpha3");
 
+                // new Map to store lang trans for this country
+                Map<String, String> languageMap = new HashMap<>();
+                for (String key : jsonObject.keySet()) {
+                    if (!("id".equals(key)) && !("alpha2".equals(key)) && !("alpha3".equals(key))) {
+                        //                        languageMap.put(key, jsonObject.getString(key));
+                        languageMap.put(key, jsonObject.optString(key, null));
+                    }
+                }
+                translations.put(countryCode, languageMap);
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -48,21 +66,32 @@ public class JSONTranslator implements Translator {
 
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Task: return an appropriate list of language codes,
+        // y TODO Task: return an appropriate list of language codes,
         //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        Map<String, String> languageMap = translations.get(country);
+        // System.out.println(languageMap);
+        if (languageMap == null) {
+            return new ArrayList<>();
+        }
+        // List<String> languages = new ArrayList<>(languageMap.keySet());
+        // System.out.println("Languages for country " + country + ": " + languages);
+        return new ArrayList<>(languageMap.keySet());
     }
 
     @Override
     public List<String> getCountries() {
-        // TODO Task: return an appropriate list of country codes,
+        // y TODO Task: return an appropriate list of country codes,
         //            but make sure there is no aliasing to a mutable object
-        return new ArrayList<>();
+        return new ArrayList<>(translations.keySet());
     }
 
     @Override
     public String translate(String country, String language) {
-        // TODO Task: complete this method using your instance variables as needed
+        // y TODO Task: complete this method using your instance variables as needed
+        Map<String, String> languageMap = translations.get(country);
+        if (languageMap != null && languageMap.containsKey(language)) {
+            return languageMap.get(language);
+        }
         return null;
     }
 }
