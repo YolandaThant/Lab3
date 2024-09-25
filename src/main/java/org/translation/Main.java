@@ -66,7 +66,7 @@ public class Main {
             LanguageCodeConverter languageConvert = new LanguageCodeConverter();
             String languageCode = languageConvert.fromLanguage(language);
 
-            System.out.println(country + " in " + language + " is " + translator.translate(country, languageCode));
+            System.out.println(country + " in " + language + " is " + translator.translate(countryCode, languageCode));
             System.out.println("Press enter to continue or quit to exit.");
             Scanner s = new Scanner(System.in);
             String textTyped = s.nextLine();
@@ -79,16 +79,16 @@ public class Main {
 
     // Note: CheckStyle is configured so that we don't need javadoc for private methods
     private static String promptForCountry(Translator translator) {
-        List<String> countries = translator.getCountries();
         // y TODO Task: replace the following println call, sort the countries alphabetically,
         //            and print them out; one per line
         //      hint: class Collections provides a static sort method
         // y TODO Task: convert the country codes to the actual country names before sorting
+        List<String> countries = translator.getCountries();
         List<String> countryName = new ArrayList<>();
         for (String country : countries) {
             CountryCodeConverter countryCodeConvert = new CountryCodeConverter();
             countryName.add(countryCodeConvert.fromCountryCode(country));
-            //            System.out.println(countryCodeConverter.fromCountryCode(country));
+            // System.out.println(countryCodeConvert.fromCountryCode(country));
         }
         Collections.sort(countryName);
         for (String country : countryName) {
@@ -115,6 +115,7 @@ public class Main {
         for (String language : languages) {
             LanguageCodeConverter languageCodeConvert = new LanguageCodeConverter();
             languageName.add(languageCodeConvert.fromLanguageCode(language));
+            // System.out.println(languageCodeConvert.fromLanguageCode(language));
         }
         Collections.sort(languageName);
         for (String language : languageName) {
