@@ -83,27 +83,4 @@ public class LanguageCodeConverter {
         // y TODO Task: update this code to use your instance variable to return the correct value
         return languageCodeMap.size();
     }
-    public static void main(String[] args) {
-        // Test the functionality of the CountryCodeConverter
-        try {
-            // Instantiate the converter with default filename
-            LanguageCodeConverter converter = new LanguageCodeConverter();
-
-            // Test converting Alpha-2 code to country name
-            String languageName = converter.fromLanguageCode("en");
-            System.out.println("en -> " + languageName);
-
-            // Test converting country name to Alpha-2 code
-            String languageCode = converter.fromLanguage("English");
-            System.out.println("English -> " + languageCode);
-
-            // Test how many countries are loaded
-            int totalLanguages = converter.getNumLanguages();
-            System.out.println("Total languages loaded: " + totalLanguages);
-
-        }
-        catch (RuntimeException e) {
-            System.err.println("Error loading the country codes: " + e.getMessage());
-        }
-    }
 }
