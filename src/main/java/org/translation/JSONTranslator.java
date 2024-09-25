@@ -51,7 +51,7 @@ public class JSONTranslator implements Translator {
                 // new Map to store lang trans for this country
                 Map<String, String> languageMap = new HashMap<>();
                 for (String key : jsonObject.keySet()) {
-                    if (!("id".equals(key)) && !("alpha2".equals(key)) && !("alpha3".equals(key))) {
+                    if (!("id".equals(key) || "alpha2".equals(key) || "alpha3".equals(key))) {
                         //                        languageMap.put(key, jsonObject.getString(key));
                         languageMap.put(key, jsonObject.optString(key, null));
                     }
