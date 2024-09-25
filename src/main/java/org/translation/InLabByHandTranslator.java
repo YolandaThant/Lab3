@@ -21,17 +21,18 @@ public class InLabByHandTranslator implements Translator {
      * @param country the country
      * @return list of language abbreviations which are available for this country
      */
+    public static final String CANADA = "can";
+
     @Override
     public List<String> getCountryLanguages(String country) {
-        // TODO Checkstyle: The String "can" appears 4 times in the file.
-        if ("can".equals(country)) {
-            return new ArrayList<>(List.of("de", "en", "zh"));
+        // y TODO Checkstyle: The String "can" appears 4 times in the file.
+        if (CANADA.equals(country)) {
+            return new ArrayList<>(List.of("de", "en", "zh", "es", "ko"));
         }
         return new ArrayList<>();
     }
 
-    // TODO Checkstyle: Static variable definition in wrong order.
-    public static final String CANADA = "can";
+    // y TODO Checkstyle: Static variable definition in wrong order.
 
     /**
      * Returns the country abbreviations for all countries whose translations are
@@ -41,7 +42,7 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public List<String> getCountries() {
-        return new ArrayList<>(List.of("can"));
+        return new ArrayList<>(List.of(CANADA));
     }
 
     /**
@@ -53,22 +54,27 @@ public class InLabByHandTranslator implements Translator {
      */
     @Override
     public String translate(String country, String language) {
-        // TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
-        // TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
-        if (!country.equals("can")) {
+        // y TODO Checkstyle: Return count is 5 (max allowed for non-void methods/ lambdas is 2).
+        // y TODO Checkstyle: String literal expressions should be on the left side of an equals comparison
+        if (!CANADA.equals(country)) {
             return null;
         }
-        if (language.equals("de")) {
-            return "Kanada";
+        String translateLanguage = null;
+        if ("de".equals(language)) {
+            translateLanguage = "Kanada";
         }
-        else if (language.equals("en")) {
-            return "Canada";
+        else if ("en".equals(language)) {
+            translateLanguage = "Canada";
         }
         else if ("zh".equals(language)) {
-            return "加拿大";
+            translateLanguage = "加拿大";
         }
-        else {
-            return null;
+        else if ("es".equals(language)) {
+            translateLanguage = "Canadá";
         }
+        else if ("ko".equals(language)) {
+            translateLanguage = "캐나다";
+        }
+        return translateLanguage;
     }
 }
