@@ -5,9 +5,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,7 +18,7 @@ public class JSONTranslator implements Translator {
 
     // TODO Task: pick appropriate instance variables for this class
     private final JSONArray jsonArray;
-    private final String ALPHA3 = "alpha3";
+    private final String alpha3 = "alpha3";
     /**
      * Constructs a JSONTranslator using data from the sample.json resources file.
      */
@@ -55,9 +53,9 @@ public class JSONTranslator implements Translator {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-            if (jsonObject.getString(ALPHA3).equalsIgnoreCase(country)) {
+            if (jsonObject.getString(alpha3).equalsIgnoreCase(country)) {
                 for (String key : jsonObject.keySet()) {
-                    if (!("id".equals(key) || "alpha2".equals(key) || ALPHA3.equals(key))) {
+                    if (!("id".equals(key) || "alpha2".equals(key) || alpha3.equals(key))) {
                         languages.add(key);
                     }
                 }
@@ -74,7 +72,7 @@ public class JSONTranslator implements Translator {
         ArrayList<String> countries = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject line = jsonArray.getJSONObject(i);
-            countries.add(line.getString(ALPHA3));
+            countries.add(line.getString(alpha3));
         }
         return countries;
     }
@@ -85,7 +83,7 @@ public class JSONTranslator implements Translator {
         String result = "Not found";
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject line = jsonArray.getJSONObject(i);
-            if (line.getString(ALPHA3).equalsIgnoreCase(country)) {
+            if (line.getString(alpha3).equalsIgnoreCase(country)) {
                 if (line.has(language.toLowerCase())) {
                     result = line.getString(language.toLowerCase());
                 }
