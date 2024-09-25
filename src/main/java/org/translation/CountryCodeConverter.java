@@ -82,31 +82,4 @@ public class CountryCodeConverter {
         // y TODO Task: update this code to use an instance variable to return the correct value
         return countryCodeMap.size();
     }
-    /**
-     * Checks code for CountryCodeConverter.
-     */
-
-    public static void main(String[] args) {
-        // Test the functionality of the CountryCodeConverter
-        try {
-            // Instantiate the converter with default filename
-            CountryCodeConverter converter = new CountryCodeConverter();
-
-            // Test converting Alpha-3 code to country name
-            String countryName = converter.fromCountryCode("usa");
-            System.out.println("USA -> " + countryName);
-
-            // Test converting country name to Alpha-3 code
-            String countryCode = converter.fromCountry("United States of America (the)");
-            System.out.println("United States of America (the) -> " + countryCode);
-
-            // Test how many countries are loaded
-            int totalCountries = converter.getNumCountries();
-            System.out.println("Total countries loaded: " + totalCountries);
-
-        }
-        catch (RuntimeException e) {
-            System.err.println("Error loading the country codes: " + e.getMessage());
-        }
-    }
 }
