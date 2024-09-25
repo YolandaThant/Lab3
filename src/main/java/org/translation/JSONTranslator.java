@@ -36,9 +36,7 @@ public class JSONTranslator implements Translator {
     public JSONTranslator(String filename) {
         // read the file to get the data to populate things...
         try {
-
             String jsonString = Files.readString(Paths.get(getClass().getClassLoader().getResource(filename).toURI()));
-
             JSONArray jsonArray = new JSONArray(jsonString);
 
             // y TODO Task: use the data in the jsonArray to populate your instance variables
@@ -57,6 +55,7 @@ public class JSONTranslator implements Translator {
                     }
                 }
                 translations.put(countryCode, languageMap);
+                // System.out.println(translations);
             }
         }
         catch (IOException | URISyntaxException ex) {
@@ -73,8 +72,9 @@ public class JSONTranslator implements Translator {
         if (languageMap == null) {
             return new ArrayList<>();
         }
-        // List<String> languages = new ArrayList<>(languageMap.keySet());
-        // System.out.println("Languages for country " + country + ": " + languages);
+        List<String> languages = new ArrayList<>(languageMap.keySet());
+        System.out.println("Languages for country " + country + ": " + languageMap);
+        System.out.println(languageMap.keySet());
         return new ArrayList<>(languageMap.keySet());
     }
 
